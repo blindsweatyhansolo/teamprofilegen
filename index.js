@@ -1,7 +1,7 @@
 // npm packages
 const inqurier = require('inquirer');
-
 const fs = require('fs');
+// const generatePage = require('./utils/generateSite.js');
 
 // empty arrays for new members, using let so that they can be updated (vs const)
 let teamManager = [];
@@ -96,6 +96,7 @@ const newEmployee = () => {
             };
         } else {
             // run renderHTML function
+            // generatePage();
             console.log('Confirm no new team members');
         }
     });
@@ -219,6 +220,9 @@ const init = () => {
            return managerData;
         });
 };
+
+// function to write new HTML file
+
 
 // call to start app, push data
 init()
