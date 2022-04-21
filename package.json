@@ -4,5 +4,25 @@
   },
   "devDependencies": {
     "jest": "^27.5.1"
-  }
+  },
+  "name": "teamprofilegen",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blindsweatyhansolo/teamprofilegen.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blindsweatyhansolo/teamprofilegen/issues"
+  },
+  "homepage": "https://github.com/blindsweatyhansolo/teamprofilegen#readme"
 }
