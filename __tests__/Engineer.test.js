@@ -18,7 +18,7 @@ test('gets github account name', () => {
 });
 
 // test if getRole() overrides from 'Employee' to 'Engineer'
-test('get role of Manager, not Employee', () => {
+test('get role of Engineer, not Employee', () => {
     const engineer = new Engineer("Joe", 2, "joe@gmail.com", "joeHub");
 
     expect(engineer.getRole()).toEqual("Engineer");

@@ -16,3 +16,10 @@ test('get Intern school name', () => {
 
     expect(intern.getSchool()).toEqual("MIT");
 });
+
+// test if getRole() overrides from 'Employee' to 'Intern'
+test('get role of Intern, not Employee', () => {
+    const intern = new Intern("Sally", 3, "sally@gmail.com", "MIT");
+
+    expect(intern.getRole()).toEqual("Intern");
+});
