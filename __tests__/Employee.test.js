@@ -25,8 +25,17 @@ test('gets Employee ID number', () => {
     expect(employee.getID()).toEqual(expect.any(Number));
 });
 
+// tests for getting employee email address using getEmail()
 test('gets Employee email address', () => {
     const employee = new Employee('Jack', 1, 'jack@gmail.com');
 
     expect(employee.getEmail()).toEqual(expect.stringContaining(employee.email.toString()));
+});
+
+// tests for getting role value using getRole(), parent class returns 'Employee'
+test('gets Employee role declaration', () => {
+    const employee = new Employee('Jack', 1, 'jack@gmail.com');
+
+    // result from parent Employee class should be 'Employee'
+    expect(employee.getRole()).toEqual("Employee");
 });
