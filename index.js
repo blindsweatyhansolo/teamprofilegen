@@ -1,6 +1,10 @@
-// npm packages
+// npm packages, required modules
 const inqurier = require('inquirer');
 const fs = require('fs');
+const Employee = require('./lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 // const generatePage = require('./utils/generateSite.js');
 
 // empty arrays for new members, using let so that they can be updated (vs const)
@@ -98,6 +102,7 @@ const newEmployee = () => {
             // run renderHTML function
             // generatePage();
             console.log('Confirm no new team members');
+            console.log(teamManager, teamEngineer, teamIntern);
         }
     });
 };
@@ -142,11 +147,10 @@ const newEngineer = () => {
               validate: input => input ? true : 'GitHub account name required.'
           }
       ])
-      // push prompt data to teamEngineer array
       .then(engineerData => {
-          console.log(engineerData);
-          teamEngineer.push(engineerData.name, engineerData.id, engineerData.email, engineerData.github);
-          console.log(teamEngineer);
+          // push data to array
+          teamEngineer.push(new Engineer(engineerData.name, engineerData.id, engineerData.email, engineerData.github));
+
           // call newEmployee() again
           newEmployee();
       })
@@ -197,9 +201,8 @@ const newIntern = () => {
           }
         ])
         .then(internData => {
-            console.log(internData);
-            teamIntern.push(internData.name, internData.id, internData.email, internData.school);
-            console.log(teamIntern);
+            // push new data into array
+            teamIntern.push(new Intern(internData.name, internData.id, internData.email, internData.school));
             // call newEmployee() again
             newEmployee();
         })
@@ -226,11 +229,9 @@ const init = () => {
 
 // call to start app, push data
 init()
-    // push managerData to teamManager array
     .then(managerData => {
-        // console.log(managerData);
-        teamManager.push(managerData.name, managerData.id, managerData.email, managerData.officeNumber);
-        // console.log(teamManager);
+        // push new data into array
+        teamManager.push(new Manager(managerData.name, managerData.id, managerData.email, managerData.officeNumber));
 
         // call function to add new employee
         newEmployee();
