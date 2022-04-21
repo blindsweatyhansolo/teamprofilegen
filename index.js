@@ -8,7 +8,7 @@ let teamManager = [];
 let teamEngineer = [];
 let teamIntern = [];
 
-// prompts for variables
+// function to display banner message
 const bannerMessage = () => {
     // banner message
     console.log(
@@ -22,6 +22,7 @@ const bannerMessage = () => {
     );
 };
 
+// prompts for Manager data
 const promptManager = () => {
     // prompts for initial setup for manager data (main user)
     return inqurier
@@ -59,7 +60,93 @@ const promptManager = () => {
     ])
 };
 
-// function call to initialize app
+// function to add new employee
+const newEmployee = () => {
+    return inqurier
+    .prompt([
+        {
+            // confirm add new employee
+            type: 'confirm',
+            name: 'newEmployee',
+            message: 'Would you like to add another team member?',
+            default: true
+        },
+        {
+            // prompt for role type from list
+            type: 'list',
+            name: 'role',
+            choices: ['Engineer', 'Intern'],
+            when: ({ newEmployee }) => newEmployee
+        }
+    ])
+    .then((newEmployeeAnswers) => {
+        if (newEmployeeAnswers.newEmployee) {
+            switch(newEmployeeAnswers.role)
+            {
+                case 'Engineer':
+                    newEngineer();
+                    break;
+                case 'Intern':
+                    newIntern();
+                    break;
+            };
+        } else {
+            // run renderHTML function
+            console.log('Confirm no new team members');
+        }
+    });
+};
+
+// function to add new Engineer data
+const newEngineer = () => {
+    console.log(
+        `
+        ====================
+        New Member: Engineer
+        ====================
+        `
+    );
+
+    return inqurier
+      .prompt([
+          {
+              name: 'name',
+              message: "Please enter Engineer's name:",
+              validate: input => input ? true : 'Name required.'
+          },
+          {
+              name: 'id',
+              message: "Please enter Engineer's ID number:",
+              validate: (answer) => {
+                if (isNaN(answer)) {
+                  return "Input must be an integer (number)";
+                }
+                return true;
+              }
+          },
+          {
+              name: 'email',
+              message: "Please enter Engineer's e-mail:",
+              validate: input => input ? true : 'E-mail required.'
+          },
+          {
+              name: 'github',
+              message: "Please enter Engineer's GitHub Account name:",
+              validate: input => input ? true : 'GitHub account name required.'
+          }
+      ])
+      .then(engineerData => {
+          console.log(engineerData);
+          teamEngineer.push(engineerData.name, engineerData.id, engineerData.email, engineerData.github);
+          console.log(teamEngineer);
+          newEmployee();
+      })
+      .catch((err) => {
+          console.log(err);
+      });
+};
+
+// function to initialize app
 const init = () => {
     bannerMessage();
 
@@ -69,9 +156,14 @@ const init = () => {
         });
 };
 
+// call to start app, push data
 init()
     .then(managerData => {
         console.log(managerData);
         teamManager.push(managerData.name, managerData.id, managerData.email, managerData.officeNumber);
         console.log(teamManager);
+        newEmployee();
+    })
+    .catch((err) => {
+        console.log(err);
     });
