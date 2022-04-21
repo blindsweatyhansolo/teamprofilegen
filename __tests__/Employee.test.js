@@ -10,3 +10,10 @@ test('creates Employee object', () => {
     expect(employee.id).toEqual(1);
     expect(employee.email).toEqual('jack@gmail.com');
 });
+
+// test for getting employee name using getName()
+test('gets name from Employee', () => {
+    const employee = new Employee('Jack', 1, 'jack@gmail.com');
+
+    expect(employee.getName()).toEqual(expect.stringContaining(employee.name.toString()));
+});
