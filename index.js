@@ -72,20 +72,24 @@ const newEmployee = () => {
             default: true
         },
         {
-            // prompt for role type from list
+            // prompt for role type from list, runs when newEmployee is true
             type: 'list',
             name: 'role',
             choices: ['Engineer', 'Intern'],
             when: ({ newEmployee }) => newEmployee
         }
     ])
+    // answers from prompt pulled into function
     .then((newEmployeeAnswers) => {
+        // if confirm from newEmployee is true: create switch case for employee type
         if (newEmployeeAnswers.newEmployee) {
             switch(newEmployeeAnswers.role)
             {
+                // call newEngineer() if 'Engineer' is selected from list
                 case 'Engineer':
                     newEngineer();
                     break;
+                // call newIntern() if 'Intern' is selected from list
                 case 'Intern':
                     newIntern();
                     break;
@@ -99,6 +103,7 @@ const newEmployee = () => {
 
 // function to add new Engineer data
 const newEngineer = () => {
+    // banner message for new Engineer
     console.log(
         `
         ====================
@@ -107,6 +112,7 @@ const newEngineer = () => {
         `
     );
 
+    // new Engineer prompts
     return inqurier
       .prompt([
           {
@@ -135,21 +141,79 @@ const newEngineer = () => {
               validate: input => input ? true : 'GitHub account name required.'
           }
       ])
+      // push prompt data to teamEngineer array
       .then(engineerData => {
           console.log(engineerData);
           teamEngineer.push(engineerData.name, engineerData.id, engineerData.email, engineerData.github);
           console.log(teamEngineer);
+          // call newEmployee() again
           newEmployee();
       })
       .catch((err) => {
+          // log any errors
           console.log(err);
       });
 };
 
-// function to initialize app
+// function to add new Intern data
+const newIntern = () => {
+    // banner message for new Intern
+    console.log(
+        `
+        ==================
+        New Member: Intern
+        ==================
+        `
+    );
+
+    // new Intern prompts
+    return inqurier
+      .prompt([
+          {
+            name: 'name',
+            message: "Please enter Intern's name:",
+            validate: input => input ? true : 'Name required.'
+          },
+          {
+            name: 'id',
+            message: "Please enter Intern's ID number:",
+            validate: (answer) => {
+              if (isNaN(answer)) {
+                return "Input must be an integer (number)";
+              }
+              return true;
+            }
+          },
+          {
+            name: 'email',
+            message: "Please enter Intern's e-mail:",
+            validate: input => input ? true : 'E-mail required.'
+          },
+          {
+            name: 'school',
+            message: "Please enter Intern's school name:",
+            validate: input => input ? true : 'School name required.'
+          }
+        ])
+        .then(internData => {
+            console.log(internData);
+            teamIntern.push(internData.name, internData.id, internData.email, internData.school);
+            console.log(teamIntern);
+            // call newEmployee() again
+            newEmployee();
+        })
+        .catch((err) => {
+            // log any errors
+            console.log(err);
+        });
+};
+
+// function to initialize app staring with banner message then the prompts for manager data
 const init = () => {
+    // call to display banner message
     bannerMessage();
 
+    // call promptManager, return data
     return promptManager()
         .then(managerData => {
            return managerData;
@@ -158,12 +222,16 @@ const init = () => {
 
 // call to start app, push data
 init()
+    // push managerData to teamManager array
     .then(managerData => {
-        console.log(managerData);
+        // console.log(managerData);
         teamManager.push(managerData.name, managerData.id, managerData.email, managerData.officeNumber);
-        console.log(teamManager);
+        // console.log(teamManager);
+
+        // call function to add new employee
         newEmployee();
     })
     .catch((err) => {
+        // console log any errors
         console.log(err);
     });
