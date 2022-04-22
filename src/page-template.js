@@ -4,7 +4,10 @@ const Engineer = require("../lib/Engineer");
 const Intern = require('../lib/Intern');
 
 // function to generate html page with calls for functions to generate individual Engineer and Intern cards
-const generateHTML = (teamManager, teamEngineer, teamIntern) => {
+const generateTemplate = (teamManager, teamEngineer, teamIntern) => {
+    // destructured manager data
+    // let { name, id, email, officeNumber } = teamManager;
+
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -32,16 +35,16 @@ const generateHTML = (teamManager, teamEngineer, teamIntern) => {
                     <div class="card shadow rounded">
                         <div class="card-header text-light bg-primary">
                             <h5>
-                            ${teamManager.getName()}
+                            ${teamManager[0].getName()}
                             </h5>
                             <i class="fa-solid fa-mug-hot"></i>
-                            ${teamManager.getRole()}
+                            ${teamManager[0].getRole()}
                         </div>
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">ID: ${teamManager.id}</li>
-                                <li class="list-group-item">Email: <a href="mailto:${teamManager.getEmail()}">${teamManager.email}</a></li>
-                                <li class="list-group-item">Office Number: ${teamManager.getOfficeNum()}</li>
+                                <li class="list-group-item">ID: ${teamManager[0].getId()}</li>
+                                <li class="list-group-item">Email: <a href="mailto:${teamManager[0].getEmail()}">${teamManager[0].getEmail()}</a></li>
+                                <li class="list-group-item">Office Number: ${teamManager[0].getOfficeNum()}</li>
                             </ul>
                         </div>  
                     </div>
@@ -51,7 +54,9 @@ const generateHTML = (teamManager, teamEngineer, teamIntern) => {
                 <section class="row row-cols-1 row-cols-md-3 mt-2 g-4 justify-content-center">
                     <!-- ENGINEER CARDS -->
 
+
                     <!-- INTERN CARDS -->
+
 
                 </section>
         
@@ -63,11 +68,6 @@ const generateHTML = (teamManager, teamEngineer, teamIntern) => {
         </body>
         </html>
     `
-}
+};
 
-
-// function to loop through Engineers, create cards (Bootstrap)
-// const renderEngineers = (teamManager, teamEngineer, teamIntern) => {
-//     console.log(teamEngineer);
-// };
-
+module.exports = generateTemplate;

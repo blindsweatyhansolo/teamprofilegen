@@ -7,7 +7,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/page-template');
 // module for file creation and copying style page for use
-// const { writeFile, copyFile } = require('./utils/generateSite');
+const writeFile = require('./utils/generateSite');
 
 // empty arrays for new members, using let so that they can be updated (vs const)
 let teamManager = [];
@@ -104,7 +104,7 @@ const newEmployee = () => {
             // run generatePage function
             generatePage();
             // console.log(teamManager, teamEngineer, teamIntern);
-            console.log('===== Confirm no new team members =====');
+            // console.log('===== Confirm no new team members =====');
         }
     });
 };
@@ -217,7 +217,14 @@ const newIntern = () => {
 // function to start building html page
 const generatePage = () => {
     // send all array data to generateHTML (./src/page-template)
-    return generateHTML(teamManager, teamEngineer, teamIntern);
+    fs.writeFileSync('./dist/teampage.html', generateHTML(teamManager, teamEngineer, teamIntern));
+    // return generateHTML(teamManager, teamEngineer, teamIntern);
+    console.log(`
+        ===============
+            Success!   
+        ===============
+    File successfully created. Check the 'dist' folder for your new Team Page.
+    `)
 };
 
 // function to initialize app staring with banner message then the prompts for manager data
