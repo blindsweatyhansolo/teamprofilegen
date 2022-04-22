@@ -6,8 +6,6 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const generateHTML = require('./src/page-template');
-// module for file creation and copying style page for use
-const writeFile = require('./utils/generateSite');
 
 // empty arrays for new members, using let so that they can be updated (vs const)
 let teamManager = [];
