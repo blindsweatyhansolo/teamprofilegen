@@ -5,7 +5,9 @@ const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-// const generatePage = require('./utils/generateSite.js');
+const generateHTML = require('./src/page-template');
+// module for file creation and copying style page for use
+// const { writeFile, copyFile } = require('./utils/generateSite');
 
 // empty arrays for new members, using let so that they can be updated (vs const)
 let teamManager = [];
@@ -99,10 +101,10 @@ const newEmployee = () => {
                     break;
             };
         } else {
-            // run renderHTML function
-            // generatePage();
-            console.log('Confirm no new team members');
-            console.log(teamManager, teamEngineer, teamIntern);
+            // run generatePage function
+            generatePage();
+            // console.log(teamManager, teamEngineer, teamIntern);
+            console.log('===== Confirm no new team members =====');
         }
     });
 };
@@ -212,6 +214,12 @@ const newIntern = () => {
         });
 };
 
+// function to start building html page
+const generatePage = () => {
+    // send all array data to generateHTML (./src/page-template)
+    return generateHTML(teamManager, teamEngineer, teamIntern);
+};
+
 // function to initialize app staring with banner message then the prompts for manager data
 const init = () => {
     // call to display banner message
@@ -223,9 +231,6 @@ const init = () => {
            return managerData;
         });
 };
-
-// function to write new HTML file
-
 
 // call to start app, push data
 init()
