@@ -3,34 +3,64 @@ const Manager = require('../lib/Manager');
 const Engineer = require("../lib/Engineer");
 const Intern = require('../lib/Intern');
 
-// function generate Engineer cards
+// function to generate Engineer cards
 const renderEngineers = teamEngineer => {
     // new array engineerCards set to call a function for each array item using map() method
    let engineerCards =  teamEngineer.map(engineer => {
        return `
-                <section class="col">
-                    <div class="card shadow rounded">
-                        <div class="card-header text-light bg-primary">
-                            <h5>
-                                ${engineer.getName()}
-                            </h5>
-                            <i class="fa-solid fa-glasses"></i>
-                            ${engineer.getRole()}
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush border">
-                                <li class="list-group-item">ID: ${engineer.getId()}</li>
-                                <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
-                                <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></li>
-                            </ul>
-                        </div>
+            <section class="col">
+                <div class="card shadow rounded">
+                    <div class="card-header text-light bg-primary">
+                        <h5>
+                            ${engineer.getName()}
+                        </h5>
+                        <i class="fa-solid fa-glasses"></i>
+                        ${engineer.getRole()}
                     </div>
-                </section>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush border">
+                            <li class="list-group-item">ID: ${engineer.getId()}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+                            <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
             `;
         });
 
    // use join() method to concatenate rendered engineer cards
    return engineerCards.join('');
+};
+
+// function to generate Intern cards
+const renderInterns = teamIntern => {
+    // iterate through data using map()
+    let internCards = teamIntern.map(intern => {
+        return `
+            <section class="col">
+                <div class="card shadow rounded">
+                    <div class="card-header text-light bg-primary">
+                        <h5>
+                            ${intern.getName()}
+                        </h5>
+                        <i class="fa-solid fa-user-graduate"></i>
+                        ${intern.getRole()}
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush border">
+                            <li class="list-group-item">ID: ${intern.getId()}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+                            <li class="list-group-item">School: ${intern.getSchool()}</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            `;
+    });
+
+    // concatenate rendered intern cards with join()
+    return internCards.join('');
 };
 
 // function to generate html page
@@ -81,11 +111,10 @@ const generateTemplate = (teamManager, teamEngineer, teamIntern) => {
                 <!-- SECTION FOR ENGINEER AND INTERN CARDS -->
                 <section class="row row-cols-1 row-cols-md-3 mt-2 g-4 justify-content-center">
                     <!-- ENGINEER CARDS -->
-
                     ${renderEngineers(teamEngineer)}
 
                     <!-- INTERN CARDS -->
-
+                    ${renderInterns(teamIntern)}
 
                 </section>
         
@@ -96,7 +125,7 @@ const generateTemplate = (teamManager, teamEngineer, teamIntern) => {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
         </body>
         </html>
-    `
+    `;
 };
 
 module.exports = generateTemplate;
