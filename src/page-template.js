@@ -3,11 +3,39 @@ const Manager = require('../lib/Manager');
 const Engineer = require("../lib/Engineer");
 const Intern = require('../lib/Intern');
 
-// function to generate html page with calls for functions to generate individual Engineer and Intern cards
-const generateTemplate = (teamManager, teamEngineer, teamIntern) => {
-    // destructured manager data
-    // let { name, id, email, officeNumber } = teamManager;
+// function generate Engineer cards
+const renderEngineers = teamEngineer => {
+    // new array engineerCards set to call a function for each array item using map() method
+   let engineerCards =  teamEngineer.map(engineer => {
+       return `
+                <section class="col">
+                    <div class="card shadow rounded">
+                        <div class="card-header text-light bg-primary">
+                            <h5>
+                                ${engineer.getName()}
+                            </h5>
+                            <i class="fa-solid fa-glasses"></i>
+                            ${engineer.getRole()}
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush border">
+                                <li class="list-group-item">ID: ${engineer.getId()}</li>
+                                <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+                                <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            `;
+        });
 
+   // use join() method to concatenate rendered engineer cards
+   return engineerCards.join('');
+};
+
+// function to generate html page
+const generateTemplate = (teamManager, teamEngineer, teamIntern) => {
+    // template literal of HTML syntax using Manager data, calls for functions to generate individual Engineer and Intern cards
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -54,6 +82,7 @@ const generateTemplate = (teamManager, teamEngineer, teamIntern) => {
                 <section class="row row-cols-1 row-cols-md-3 mt-2 g-4 justify-content-center">
                     <!-- ENGINEER CARDS -->
 
+                    ${renderEngineers(teamEngineer)}
 
                     <!-- INTERN CARDS -->
 
