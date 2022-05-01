@@ -22,7 +22,7 @@ test('gets name from Employee', () => {
 test('gets Employee ID number', () => {
     const employee = new Employee('Jack', 1, 'jack@gmail.com');
 
-    expect(employee.getID()).toEqual(expect.any(Number));
+    expect(employee.getId()).toEqual(expect.any(Number));
 });
 
 // tests for getting employee email address using getEmail()
