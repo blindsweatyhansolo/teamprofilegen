@@ -31,17 +31,19 @@ npm i jest
 ```
 
 ## [Demo:](#table-of-contents)
-[Demo Video]()
+[Project Walkthrough Demo Video](https://drive.google.com/file/d/1jUdBlt5DOIS7ihSTSWko-ARN3h_ybAuz/view?usp=sharing)
 
 This application runs from the command line. After installing the required dependencies, run using the following command:
 ```
 node index.js
 ```
-![Team Profile Generator Live Demo]()
+![Team Profile Generator Live Demo](/assets/demos/demo.gif)
 
 Once all members have been added, check the 'dist' folder for the index.html file for your team page! The HTML file CSS created via Bootstrap (already linked for your convenience).
 
-![Finished Team Profile Page]()
+![Finding Finished HTML File](/assets/demos/demo2.gif)
+![Demo Output](/assets/demos/demoScreenshot.png)
+
 
 ## [Tests:](#table-of-contents)
 Testing completed using the [Jest JavaScript Testing Framework](https://jestjs.io/)
